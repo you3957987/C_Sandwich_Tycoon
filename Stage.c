@@ -28,7 +28,7 @@ void stageinit(Owner* sand_owner, int localnum) {
 void ShowBaseUi(Stage* p) {
 	cls();
 	showui();
-	gotoxy(55, 25);
+	gotoxy(55, 23);
 	printf("[[[ %s ]]]\n", p->title);
 }
 
@@ -66,6 +66,8 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 				ShowBaseUi(p);
 				checksandwich(sand_owner,(p->cusnum)-i,p->localnum );
 			}
+			ShowBaseUi(p);
+			ShowStateReady(sand_owner);
 		}
 		if (strcmp(p->title, "노멀-1 판매 스테이지") == 0) {
 
@@ -80,6 +82,8 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 				}
 			}
 			stageinit(sand_owner,p->localnum);
+			ShowBaseUi(p);
+			ShowStateSell(sand_owner);
 
 		}
 		if (strcmp(p->title, "노멀-2 준비 스테이지") == 0) {
@@ -115,7 +119,7 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 			
 		}
 		if (strcmp(p->title, "하드-1 준비 스테이지") == 0) {
-			;
+
 		}
 		if (strcmp(p->title, "하드-1 판매 스테이지") == 0) {
 			
@@ -142,10 +146,10 @@ void start_stage() {
 	Stage nomalonego = { "노멀-1 판매 스테이지",NULL ,NULL ,1,1};
 	Stage nomaltwoready = { "노멀-2 준비 스테이지", NULL, NULL ,2,2};//손님수 지역수
 	Stage nomaltwogo = { "노멀-2 판매 스테이지", NULL, NULL, 2, 2 };
-	Stage hardoneready = { "하드-1 준비 스테이지",NULL ,NULL };
-	Stage hardonego = { "하드-1 판매 스테이지",NULL ,NULL };
-	Stage hardtwoready = { "하드-2 준비 스테이지",NULL ,NULL };
-	Stage hardtwogo = { "하드-2 판매 스테이지",NULL , NULL };
+	Stage hardoneready = { "하드-1 준비 스테이지",NULL ,NULL ,3,3};
+	Stage hardonego = { "하드-1 판매 스테이지",NULL ,NULL ,3,3};
+	Stage hardtwoready = { "하드-2 준비 스테이지",NULL ,NULL ,4,4};
+	Stage hardtwogo = { "하드-2 판매 스테이지",NULL , NULL ,4,4};
 	Stage hardone = { "하드-1 스테이지", &hardoneready,&hardonego };
 	Stage hardtwo = { "하드-2 스테이지",&hardtwoready ,&hardtwogo };
 	Stage nomalone = { "노멀-1 스테이지",&nomaloneready ,&nomalonego };

@@ -134,6 +134,7 @@
     <ClCompile Include="Main.c" />
     <ClCompile Include="makesandwich.c" />
     <ClCompile Include="getordersandwich.c" />
+    <ClCompile Include="showstate.c" />
     <ClCompile Include="Stage.c" />
     <ClCompile Include="StartMenu.c" />
     <ClCompile Include="UI.c" />

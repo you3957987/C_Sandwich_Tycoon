@@ -13,23 +13,23 @@ void checksandwich(Owner* sand_owner, int cuscount, int localnum) {// 남은 손님�
 	p = sand_owner->localNode;
 	int guess;
 	int print;
-	gotoxy(55, 27);
-	printf("남은 손님 수 : %d", cuscount);
+	gotoxy(58, 27);
+	printf("남은 손님 수 : %d ",cuscount );
 	Sleep(1000);
 
 	for (int i = 0; i < localnum; i++) {
-		gotoxy(55, 28+(i*4));
+		gotoxy(55, 29+(i*4));
 		printf("            [[%d]]", p->localname);
-		gotoxy(55, 30+(i*4));
+		gotoxy(55, 31+(i*4));
 		printf("             %d명", p->cuscount);
 		Sleep(1000);
-		print = 30 + (i * 4);
+		print = 31 + (i * 4);
 		p = p->link;
 	}
 
 
 	while (1) {
-		gotoxy(55, print+2);
+		gotoxy(50, print+2);
 		printf("다음 손님을 맞으려면 1을 입력하세요 ~ : ");
 		scanf("%d", &guess);
 		if (guess == 1) {

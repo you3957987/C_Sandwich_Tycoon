@@ -38,7 +38,7 @@ void makesandwich(Owner* sand_owner, int* stagecheck) {
 	int local = 1; // 배달 지역은 다시 선택 가능하게!!
 	while (1) {
 		showlocal(p);
-		gotoxy(50, 38);
+		gotoxy(45, 38);
 		printf("배달 지역을 선택하세요( 선택 : 1 / 다른 지역으로 : 2) : ");
 		scanf("%d", &guess);
 		if (guess == 1) {
@@ -69,8 +69,9 @@ void makesandwich(Owner* sand_owner, int* stagecheck) {
 				}
 			}
 			else {
-				gotoxy(55, 40);
-				printf("지역을 잘 못 선택하셨어요!!! 주의하세요! ");
+				gotoxy(45, 40);
+				printf("지역을 잘 못 선택하셨어요!!! 주의하세요! (체력이 감소했습니다! <%d> -> <%d>) ", sand_owner->blood, (sand_owner->blood) - 1);
+				sand_owner->blood--;
 			}
 
 		

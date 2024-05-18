@@ -97,55 +97,80 @@ void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on) {
 				gotoxy(50, 36);
 				printf("VIP 주문 : %d개 확인되었습니다.",localvipnum);
 				if (cusvipnum != localvipnum) { // vip 잘못 된거 거르기
+					Sleep(1000);
 					gotoxy(45, 37);
 					printf("실제 VIP : %d // 확인된 VIP : %d 샌드위치를 잘못 만드셨어요!!!", cusvipnum, localvipnum);
 					*on = 0;
+					Sleep(1000);
 					gotoxy(45, 38);
+					printf("체력이 감소했어요!! <%d> -> <%d> ", sand_owner->blood, sand_owner->blood-2);
+					sand_owner->blood -= 2;
+					Sleep(1000);
+					gotoxy(45, 39);
 					printf("다음 스테이지에서는 제대로 만들어 보세요!");
-					Sleep(2000);
 					break;
 				}
 				if (localvipnum > 0) {
+					Sleep(1000);
 					gotoxy(50, 37);
 					printf("VIP 주문 확인! 먼저 배달할게요!");
 					Customer* comparecus = delete_front(pCus->cusQ);
 					Customer* comparelocal = delete_front(pLocal->cusQ);
 					what = comparesandwich(comparecus, comparelocal);
 					if (what == 1) {
+						Sleep(1000);
 						gotoxy(50, 38);
 						printf("내가 주문한 샌드위치가 아니야!!!!!!!");
-						Sleep(2000);
 					}
 					else if(what == 0) {
+						Sleep(1000);
 						gotoxy(50, 38);
-						printf("우마이");
-						Sleep(2000);
+						printf("우마이!!");
+						Sleep(1000);
+						gotoxy(50, 39);
+						printf("총 수익이 증가했어요!! <%d> -> <%d>", sand_owner->total_income, sand_owner->total_income + 100);
+						sand_owner->total_income += 150; // vip는 50원 더
 					}
+					pCus->cuscount -= 1;
+					pLocal->cuscount -= 1; // 손님수 감소
+					pCus->cusQ->vipnum -= 1;
+					pLocal->cusQ->vipnum -= 1; //vip수 감소
 				}
 				else {
+					Sleep(1000);
 					gotoxy(50, 37);
 					printf("VIP 주문이 없으므로 일반 배달할게요!");
 					Customer* comparecus = delete_rear(pCus->cusQ);
 					Customer* comparelocal = delete_rear(pLocal->cusQ);
 					what = comparesandwich(comparecus, comparelocal);
 					if (what == 1) {
+						Sleep(1000);
 						gotoxy(50, 38);
 						printf("내가 주문한 샌드위치가 아니야!!!!!!!");
-						Sleep(2000);
+			
 					}
 					else if (what == 0) {
+						Sleep(1000);
 						gotoxy(50, 38);
 						printf("우마이");
-						Sleep(2000);
+						Sleep(1000);
+						gotoxy(50, 39);
+						printf("총 수익이 증가했어요!! <%d> -> <%d>", sand_owner->total_income, sand_owner->total_income + 100);
+						sand_owner->total_income += 100;
+		
 					}
+					pCus->cuscount -= 1;
+					pLocal->cuscount -= 1;//손님수 감소
 				}
 				uptime = (rand() % 5) + 1;
 				rider.avail_time += uptime;
-				gotoxy(50, 40);
+				Sleep(1000);
+				gotoxy(45, 41);
 				printf("[%d] 배달 기사님의 대기시간이 %d만큼 증가했어요! < %d > -> < %d >  ",rider.id ,uptime, time, rider.avail_time );
 				insert_min_heap(rider_heap, rider);
 				while (1) {
-					gotoxy(50, 41);
+					Sleep(1000);
+					gotoxy(51, 43);
 					printf("확인하셨다면 1을 입력해주세요~ : ");
 					scanf("%d", &guess);
 					if (guess == 1) {

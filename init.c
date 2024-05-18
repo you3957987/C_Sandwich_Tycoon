@@ -91,8 +91,8 @@ void insertnode(LocalNode* tail, int localname) {
 // 아래 내용은 아직 미완. 우선순위 큐로 배달기사님 만들 예정
 ////////////////////////////////
 
+// delete_min_heap은 deliversandwich.c에 따로 았음!!
 
-// rider 스케쥴링은 따로 만들기
 void insert_min_heap(Heap* rider_heap, Rider rider) {
     int i;
     i = ++(rider_heap->heap_size);
@@ -119,7 +119,6 @@ void rider_init(Heap* rider_heap) {
     rider_heap->heap[0].id = 0;
     rider_heap->heap[0].avail_time = 0;
 
-    //return rider_heap;
 }
 
 void rider_avail_time_init(Heap* rider_heap) {
