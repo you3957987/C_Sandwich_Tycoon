@@ -106,8 +106,9 @@ void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on) {
 					printf("체력이 감소했어요!! <%d> -> <%d> ", sand_owner->blood, sand_owner->blood-2);
 					sand_owner->blood -= 2;
 					Sleep(1000);
-					gotoxy(45, 39);
-					printf("다음 스테이지에서는 제대로 만들어 보세요!");
+					gotoxy(42, 39);
+					printf("다음 스테이지에서는 제대로 만들어 보세요!(3초후 다음 스테이지로 자동으로 이동되요~)");
+					Sleep(3000);
 					break;
 				}
 				if (localvipnum > 0) {

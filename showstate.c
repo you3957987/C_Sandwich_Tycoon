@@ -71,9 +71,9 @@ void ShowStateSell(Owner* sand_owner) {
 	}
 	Sleep(1000);
 	gotoxy(45, 27);
-	printf("주문 받은 샌드위치를 전부 만들었습니다.");
+	printf("주문 받은 샌드위치를 전부 배달완료 했습니다.");
 	gotoxy(45, 29);
-	printf("샌드위치를 판매하시려면 1을 입력하여 판매 스테이지로 이동하세요~ : ");
+	printf("샌드위치를 제작하시려면 1을 입력하여 준비 스테이지로 이동하세요~ : ");
 	while (1) {
 		scanf("%d", &guess);
 		if (guess == 1) {

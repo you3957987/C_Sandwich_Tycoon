@@ -9,7 +9,7 @@
 #include "Sandwich.h"
 
 void showlocal(LocalNode* p) {
-	gotoxy(55, 36);
+	gotoxy(55, 39);
 	printf("            [[%d]]", p->localname);
 }
 
@@ -25,7 +25,7 @@ void makesandwich(Owner* sand_owner, int* stagecheck) {
 	srand(time(NULL));// 필요 없는지 확인
 
 	for (int i = 0; i < 5; i++) {
-		gotoxy(55, 30+i);
+		gotoxy(55, 27+2*i);
 		printf("[%d번]어떤 재료를 넣을까요? :",i+1);
 		scanf("%d", &guess);
 		push_stack(guess, cus->sandwich);
@@ -38,7 +38,7 @@ void makesandwich(Owner* sand_owner, int* stagecheck) {
 	int local = 1; // 배달 지역은 다시 선택 가능하게!!
 	while (1) {
 		showlocal(p);
-		gotoxy(45, 38);
+		gotoxy(45, 41);
 		printf("배달 지역을 선택하세요( 선택 : 1 / 다른 지역으로 : 2) : ");
 		scanf("%d", &guess);
 		if (guess == 1) {
@@ -46,9 +46,9 @@ void makesandwich(Owner* sand_owner, int* stagecheck) {
 			if (p->localname == (*stagecheck)) {
 
 				cus->local = p->localname;
-				gotoxy(55, 40);
-				printf("                                                                       ");
-				gotoxy(55, 40);
+				gotoxy(45, 43);
+				printf("                                                                                     ");
+				gotoxy(55, 43);
 				printf("VIP 손님인가요?(O : 1 / X : 0) : ");
 				scanf("%d", &guess);
 				cus->vip = guess;
@@ -69,7 +69,7 @@ void makesandwich(Owner* sand_owner, int* stagecheck) {
 				}
 			}
 			else {
-				gotoxy(45, 40);
+				gotoxy(45, 43);
 				printf("지역을 잘 못 선택하셨어요!!! 주의하세요! (체력이 감소했습니다! <%d> -> <%d>) ", sand_owner->blood, (sand_owner->blood) - 1);
 				sand_owner->blood--;
 			}

@@ -101,6 +101,8 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 				checksandwich(sand_owner, (p->cusnum) - i, p->localnum);
 
 			}
+			ShowBaseUi(p);
+			ShowStateReady(sand_owner);
 
 		}
 		if (strcmp(p->title, "노멀-2 판매 스테이지") == 0) {
@@ -116,6 +118,8 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 				}
 			}
 			stageinit(sand_owner, p->localnum);
+			ShowBaseUi(p);
+			ShowStateSell(sand_owner);
 			
 		}
 		if (strcmp(p->title, "하드-1 준비 스테이지") == 0) {
