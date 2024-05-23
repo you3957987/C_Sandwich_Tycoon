@@ -56,6 +56,9 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 
 		if (strcmp(p->title, "노멀-1 준비 스테이지") == 0) {
 
+			ShowBaseUi(p);
+			stockminigame(stock);
+
 			rider_avail_time_init(rider_heap);
 			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
 			{
