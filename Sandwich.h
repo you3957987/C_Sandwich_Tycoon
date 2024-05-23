@@ -22,7 +22,7 @@ typedef struct local {
     int localname; // .숫자를 문자로 변환하는 함수 만들어야함
     Queue* cusQ;
     struct LocalNode* link;
-}LocalNode; // 연결리스트
+}LocalNode; // 원형 연결리스트
 
 typedef struct rider {
     int id; // 라이더 구분용!!!
@@ -42,3 +42,25 @@ typedef struct owner {
     LocalNode* cusNode; // 손님 저장 연결리스트
     LocalNode* localNode;// 지역 저장 연결리스트
 }Owner;
+
+typedef struct ownerstock {
+    int bread; // 1
+    int vege; // 2
+    int meat; // 3
+    int souce; // 4
+    int drink; // 5
+}OwnerStock; // 재고 관리 구조체
+
+typedef struct listnode {
+    int name;// 재료 이름
+    int count; // 재료 개수
+    struct ListNode* link;
+}ListNode; // 단순 연결 이스트
+
+typedef struct DlistNode {
+    int waittime; // 납품 대기시간
+    int localnum; // 납품 장소 번호
+    ListNode* stocklist; // 헤드 포인터
+    struct DlistNode* blink;
+    struct DlistNode* alink;
+}DlistNode; // 재고 미니게임용 이중 연결 리스트

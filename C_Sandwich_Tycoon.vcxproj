@@ -137,6 +137,7 @@
     <ClCompile Include="showstate.c" />
     <ClCompile Include="Stage.c" />
     <ClCompile Include="StartMenu.c" />
+    <ClCompile Include="stockminigame.c" />
     <ClCompile Include="UI.c" />
     <ClCompile Include="window.c" />
   </ItemGroup>

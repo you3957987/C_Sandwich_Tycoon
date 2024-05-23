@@ -44,7 +44,7 @@ Stage* stage_pop(Stage_Stack* stage_stack)
 		p = stage_stack->stack[(stage_stack->top)--];
 	return p;
 }
-void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap* rider_heap)// 자 드가자
+void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap* rider_heap,OwnerStock* stock)// 자 드가자
 {
 	Stage* p;
 	stage_push(stage_stack, root);
@@ -169,8 +169,10 @@ void start_stage() {
 	rider_init(&rider_heapb);
 	Heap* rider_heap = &rider_heapb;
 
+	OwnerStock stock;
+	stock_init(&stock);
 
-	travel_stage(stage_stack, &root, &sand_owner, rider_heap);// 시작!!!!!!!!!!!!!!
+	travel_stage(stage_stack, &root, &sand_owner, rider_heap, &stock);// 시작!!!!!!!!!!!!!!
 
 
 }

@@ -136,3 +136,13 @@ void rider_avail_time_init(Heap* rider_heap) {
     rider_heap->heap[0].id = 0;
     rider_heap->heap[0].avail_time = 0;
 }
+// 재고 관리 파트
+
+void stock_init(OwnerStock* stock) {
+    
+    stock->bread - 10;
+    stock->drink = 10;
+    stock->meat = 10;
+    stock->souce = 10;
+    stock->vege = 10;
+}
