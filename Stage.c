@@ -57,9 +57,9 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 		if (strcmp(p->title, "노멀-1 준비 스테이지") == 0) {
 
 			ShowBaseUi(p);
-			stockminigame(stock);
-
+			stockminigame(stock,p->actiontime); // 재고, 행동타임
 			rider_avail_time_init(rider_heap);
+
 			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
 			{
 				ShowBaseUi(p);
@@ -94,15 +94,19 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 			insertnode(sand_owner->cusNode, 2);
 			insertnode(sand_owner->localNode, 2);
 			on = 1;
+
+
+			ShowBaseUi(p);
+			stockminigame(stock, p->actiontime); // 재고, 행동타임
+
 			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
 			{
 				ShowBaseUi(p);
 				getordersandwich(sand_owner, p->localnum, i, &stagecheck); // 샌드위치 주문 받기- 스테이지 지역수 , 몇번째 손님 , 스테이지 체크용
 				ShowBaseUi(p);
-				makesandwich(sand_owner, &stagecheck); // 샌드위치 만들기 ,스테이지 체크용
+				makesandwich(sand_owner, &stagecheck, stock); // 샌드위치 만들기 ,스테이지 체크용 // 재고
 				ShowBaseUi(p);
 				checksandwich(sand_owner, (p->cusnum) - i, p->localnum);
-
 			}
 			ShowBaseUi(p);
 			ShowStateReady(sand_owner, stock);
@@ -149,14 +153,14 @@ void start_stage() {
 	memset(stage_stack, 0, sizeof(Stage_Stack));
 	stage_stack->top = -1;
 
-	Stage nomaloneready = { "노멀-1 준비 스테이지",NULL ,NULL,1,1 };// 손님수 지역수
-	Stage nomalonego = { "노멀-1 판매 스테이지",NULL ,NULL ,1,1};
-	Stage nomaltwoready = { "노멀-2 준비 스테이지", NULL, NULL ,2,2};//손님수 지역수
-	Stage nomaltwogo = { "노멀-2 판매 스테이지", NULL, NULL, 2, 2 };
-	Stage hardoneready = { "하드-1 준비 스테이지",NULL ,NULL ,3,3};
-	Stage hardonego = { "하드-1 판매 스테이지",NULL ,NULL ,3,3};
-	Stage hardtwoready = { "하드-2 준비 스테이지",NULL ,NULL ,4,4};
-	Stage hardtwogo = { "하드-2 판매 스테이지",NULL , NULL ,4,4};
+	Stage nomaloneready = { "노멀-1 준비 스테이지",NULL ,NULL,1,1 ,10};// 손님수 지역수
+	Stage nomalonego = { "노멀-1 판매 스테이지",NULL ,NULL ,1,1,10};
+	Stage nomaltwoready = { "노멀-2 준비 스테이지", NULL, NULL ,2,2,20};//손님수 지역수
+	Stage nomaltwogo = { "노멀-2 판매 스테이지", NULL, NULL, 2, 2,20 };
+	Stage hardoneready = { "하드-1 준비 스테이지",NULL ,NULL ,3,3,30};
+	Stage hardonego = { "하드-1 판매 스테이지",NULL ,NULL ,3,3,30};
+	Stage hardtwoready = { "하드-2 준비 스테이지",NULL ,NULL ,4,4,40};
+	Stage hardtwogo = { "하드-2 판매 스테이지",NULL , NULL ,4,4,40};
 	Stage hardone = { "하드-1 스테이지", &hardoneready,&hardonego };
 	Stage hardtwo = { "하드-2 스테이지",&hardtwoready ,&hardtwogo };
 	Stage nomalone = { "노멀-1 스테이지",&nomaloneready ,&nomalonego };
@@ -176,6 +180,5 @@ void start_stage() {
 	stock_init(&stock);
 
 	travel_stage(stage_stack, &root, &sand_owner, rider_heap, &stock);// 시작!!!!!!!!!!!!!!
-
 
 }

@@ -73,6 +73,8 @@ void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on) {
 	int time; // 대기시간 저장용
 	int uptime; // 증가시간 랜덤값 저장용
 
+	// 라이더 뽑기 간단한 미니게임
+
 	rider = delete_min_heap(rider_heap); // 라이더 가챠~
 	time = rider.avail_time;
 
@@ -167,8 +169,15 @@ void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on) {
 				rider.avail_time += uptime;
 				Sleep(1000);
 				gotoxy(45, 41);
-				printf("[%d] 배달 기사님의 대기시간이 %d만큼 증가했어요! < %d > -> < %d >  ",rider.id ,uptime, time, rider.avail_time );
+				printf("[%d] 배달 기사님의 대기시간이 %d만큼 증가했어요! < %d > -> < %d >  ",rider.id ,uptime, time, rider.avail_time-1 );
 				insert_min_heap(rider_heap, rider);
+
+				for (int i = 1; i <= 10; i++) {
+					rider_heap->heap[i].avail_time -=1;
+					if (rider_heap->heap[i].avail_time == 0) {
+						rider_heap->heap[i].avail_time = 1;
+					}
+				}
 				while (1) {
 					Sleep(1000);
 					gotoxy(51, 43);

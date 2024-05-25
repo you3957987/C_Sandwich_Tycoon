@@ -9,7 +9,7 @@
 #include "Sandwich.h"
 
 void showrider(Heap* rider_heap) {
-	for (int i = 1; i <= 10; i++) {
+	for (int i = 1 ; i <= 10; i++) {
 		Sleep(100);
 		gotoxy(55, 31+i);
 		printf("[%d] 기사님의 대기시간 : %d", rider_heap->heap[i].id, rider_heap->heap[i].avail_time);
@@ -17,7 +17,7 @@ void showrider(Heap* rider_heap) {
 	int guess;
 	while (1) {
 		gotoxy(47, 44);
-		printf("가장 빠른 기사님을 호출하시려면 1을 입력하세요!! : ");
+		printf("기사님을 호출하시려면 1을 입력하세요!! : ");
 		scanf("%d", &guess);
 		if (guess == 1) {
 			break;

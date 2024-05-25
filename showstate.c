@@ -14,8 +14,8 @@ void ShowStateReady(Owner* sand_owner, OwnerStock* stock) {
 	int guess = 0;
 	gotoxy(52, 23);
 	printf("[[ 총 수익 :: %d // 남은 체력 :: %d ]]", sand_owner->total_income, sand_owner->blood);
-	gotoxy(52, 25);
-	printf("재고 %d %d %d %d %d", stock->stock[0], stock->stock[1], stock->stock[2], stock->stock[3], stock->stock[4]);
+	gotoxy(40, 25);
+	printf("재고 빵 : %d // 야채 : %d // 재료 : %d // 소스 : %d // 음료 : %d", stock->stock[0], stock->stock[1], stock->stock[2], stock->stock[3], stock->stock[4]);
 
 
 	if (sand_owner->blood <= 0) {

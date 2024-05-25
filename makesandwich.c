@@ -13,6 +13,59 @@ void showlocal(LocalNode* p) {
 	printf("            [[%d]]", p->localname);
 }
 
+const char* numberToStringmake(int num) {
+	switch (num) {
+	case 1:
+		return "빵1";
+	case 2:
+		return "빵2";
+	case 3:
+		return "빵3";
+	case 4:
+		return "야채1";
+	case 5:
+		return "야채2";
+	case 6:
+		return "야채3";
+	case 7:
+		return "재료1";
+	case 8:
+		return "재료2";
+	case 9:
+		return "재료3";
+	case 10:
+		return "소스1";
+	case 11:
+		return "소스2";
+	case 12:
+		return "소스3";
+	case 13:
+		return "음료1";
+	case 14:
+		return "음료2";
+	case 15:
+		return "음료3";
+	default:
+		return "Invalid number";
+	}
+}
+
+const char* numberToStringmakep(int num) {
+	switch (num) {
+	case 1:
+		return "빵";
+	case 2:
+		return "야채";
+	case 3:
+		return "재료";
+	case 4:
+		return "소스";
+	case 5:
+		return "음료";
+	default:
+		return "Invalid number";
+	}
+}
 
 void makesandwich(Owner* sand_owner, int* stagecheck, OwnerStock* stock) {
 
@@ -35,14 +88,18 @@ void makesandwich(Owner* sand_owner, int* stagecheck, OwnerStock* stock) {
 		gotoxy(55, 31);
 		printf("                                       ");
 		gotoxy(55, 31);
-		printf("[%d번]어떤 재료를 넣을까요? :",i+1);
+		printf("[%s]어떤 재료를 넣을까요?", numberToStringmakep(i+1));
+		gotoxy(55, 33);
+		printf("                                                             ");
+		gotoxy(55, 33);
+		printf("<%s> = %d // <%s> = %d // <%s> = %d :: ", numberToStringmake(3*i+1), 3*i+1, numberToStringmake(3*i+2), 3*i+2, numberToStringmake(3*i+3), 3*i+3);
 		scanf("%d", &guess);
 		if (stock->stock[i] == 0) {
-			gotoxy(55, 34);
+			gotoxy(55, 35);
 			printf("재고가 없습니다!! 총 수익 50 감소!");
 			sand_owner->total_income -= 50;
 			Sleep(1000);
-			gotoxy(55, 34);
+			gotoxy(55, 35);
 			printf("                                                ");
 		}
 		else {
@@ -59,7 +116,9 @@ void makesandwich(Owner* sand_owner, int* stagecheck, OwnerStock* stock) {
 	
 	//insertnode(sand_owner->localNode, 2);
 	gotoxy(55, 31);
-	printf("                                       ");
+	printf("                                             ");
+	gotoxy(55, 33);
+	printf("                                                                     ");
 	LocalNode *p;
 	p = sand_owner->localNode;
 	int local = 1; // 배달 지역은 다시 선택 가능하게!!

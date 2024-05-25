@@ -8,6 +8,43 @@
 #include "Stage.h"
 #include "Sandwich.h"
 
+const char* numberToStringgetorder(int num) {
+	switch (num) {
+	case 1:
+		return "빵1";
+	case 2:
+		return "빵2";
+	case 3:
+		return "빵3";
+	case 4:
+		return "야채1";
+	case 5:
+		return "야채2";
+	case 6:
+		return "야채3";
+	case 7:
+		return "재료1";
+	case 8:
+		return "재료2";
+	case 9:
+		return "재료3";
+	case 10:
+		return "소스1";
+	case 11:
+		return "소스2";
+	case 12:
+		return "소스3";
+	case 13:
+		return "음료1";
+	case 14:
+		return "음료2";
+	case 15:
+		return "음료3";
+	default:
+		return "Invalid number";
+	}
+}
+
 void getordersandwich(Owner* sand_owner,int localnum, int cusnum, int *stagecheck) {
 
 	Customer* cus = (Customer*)malloc(sizeof(Customer));
@@ -23,11 +60,11 @@ void getordersandwich(Owner* sand_owner,int localnum, int cusnum, int *stagechec
 		int random = (rand() % 3 + (1 + (3 * i)));
 		push_stack(random, cus->sandwich);
 		gotoxy(55, 30 + 2*i);
-		if (i == 0) printf("빵 종류는 : %d\n", random );
-		else if (i == 1) printf("야채 종류는 : %d\n", random);
-		else if (i == 2) printf("재료 종류는 : %d\n", random);
-		else if (i == 3) printf("소스 종류는 : %d\n", random);
-		else if (i == 4) printf("빵 종류는 : %d\n", random);
+		if (i == 0) printf("빵 종류는 : %s\n", numberToStringgetorder(random));
+		else if (i == 1) printf("야채 종류는 : %s\n", numberToStringgetorder(random));
+		else if (i == 2) printf("재료 종류는 : %s\n", numberToStringgetorder(random));
+		else if (i == 3) printf("소스 종류는 : %s\n", numberToStringgetorder(random));
+		else if (i == 4) printf("음료 종류는 : %s\n", numberToStringgetorder(random));
 		Sleep(500);
 	}
 	cus->vip = rand() % 2;

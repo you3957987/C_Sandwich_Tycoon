@@ -8,6 +8,7 @@ typedef struct Stage {
 	struct Stage* left, * right;
 	int cusnum;// 스테이지별 손님 수
 	int localnum; // 스테이지별 지역수
+	int actiontime; // 재고 미니게임 행동수
 }Stage; // 트리
 
 typedef struct stage_stack {

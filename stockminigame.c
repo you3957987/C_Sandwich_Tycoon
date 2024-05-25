@@ -119,7 +119,24 @@ void DlistNode_init(DlistNode* local, int which[]) {
 	local->blink = local;
 }
 
-stockminigame(OwnerStock* stock) {// int actiontime
+const char* numberToStringminigame(int num) {
+	switch (num) {
+	case 1:
+		return "빵";
+	case 2:
+		return "야채";
+	case 3:
+		return "재료";
+	case 4:
+		return "소스";
+	case 5:
+		return "음료";
+	default:
+		return "Invalid number";
+	}
+}
+
+stockminigame(OwnerStock* stock, int actiontime) {// int actiontime
 
 	int time = 0;
 	int which[6] = { 0,0,0,0,0,0 }; // 납품 위치 존재하면 1 0번 인덱스 무시 1~5번 인덱스만 사용
@@ -130,7 +147,6 @@ stockminigame(OwnerStock* stock) {// int actiontime
 
 	int whichcount = 1;
 	int random;
-	int actiontime = 20; // 없애야됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	DlistNode* p;
 	DlistNode* p1;
 	ListNode* pp;
@@ -164,8 +180,23 @@ stockminigame(OwnerStock* stock) {// int actiontime
 		gotoxy(20, 28);
 		printf("<<재고>>");
 		for (int i = 0; i < 5; i++) {
-			gotoxy(20, 28 + ((i+1) * 3)); 
-			printf("[%d] :: %2d", i+1,stock->stock[i]);
+			gotoxy(17, 28 + ((i+1) * 3)); 
+			if (i + 1 == 1) {
+				printf(" [ 빵 ] :: %2d", stock->stock[i]);
+			}
+			else if (i + 1 == 2) {
+				printf("[ 야채 ] :: %2d", stock->stock[i]);
+			}
+			else if (i + 1 == 3) {
+				printf("[ 재료 ] :: %2d", stock->stock[i]);
+			}
+			else if (i + 1 == 4) {
+				printf("[ 소스 ] :: %2d", stock->stock[i]);
+			}
+			else if (i + 1 == 5) {
+				printf("[ 음료 ] :: %2d", stock->stock[i]);
+			}
+
 		}
 		gotoxy(16, 48);
 		printf("남은 행동 시간 : %2d", actiontime - time);
@@ -190,7 +221,7 @@ stockminigame(OwnerStock* stock) {// int actiontime
 				toxy = 0;
 				while (pp) {
 					gotoxy(75+toxy,27);
-					printf("%d 몇개: %d", pp->name, pp->count);
+					printf("[ %2s X %d ]", numberToStringminigame(pp->name), pp->count);
 					toxy += 15;
 					pp = pp->link;
 				}
@@ -204,7 +235,7 @@ stockminigame(OwnerStock* stock) {// int actiontime
 				toxy = 0;
 				while (pp) {
 					gotoxy(75 + toxy, 32);
-					printf("%d 몇개: %d", pp->name, pp->count);
+					printf("[ %2s X %d ]", numberToStringminigame(pp->name), pp->count);
 					toxy += 15;
 					pp = pp->link;
 				}
@@ -218,7 +249,7 @@ stockminigame(OwnerStock* stock) {// int actiontime
 				toxy = 0;
 				while (pp) {
 					gotoxy(75 + toxy, 37);
-					printf("%d 몇개: %d", pp->name, pp->count);
+					printf("[ %2s X %d ]", numberToStringminigame(pp->name), pp->count);
 					toxy += 15;
 					pp = pp->link;
 				}
@@ -232,7 +263,7 @@ stockminigame(OwnerStock* stock) {// int actiontime
 				toxy = 0;
 				while (pp) {
 					gotoxy(75 + toxy, 42);
-					printf("%d 몇개: %d", pp->name, pp->count);
+					printf("[ %2s X %d ]", numberToStringminigame(pp->name), pp->count);
 					toxy += 15;
 					pp = pp->link;
 				}
@@ -246,7 +277,7 @@ stockminigame(OwnerStock* stock) {// int actiontime
 				toxy = 0;
 				while (pp) {
 					gotoxy(75 + toxy, 47);
-					printf("%d 몇개: %d", pp->name, pp->count);
+					printf("[ %2s X %d ]", numberToStringminigame(pp->name), pp->count);
 					toxy += 15;
 					pp = pp->link;
 				}
@@ -297,8 +328,16 @@ stockminigame(OwnerStock* stock) {// int actiontime
 				break;
 			}
 			else if (c == 75) { // 왼쪽
-				gotoxy(80, 45);
-				printf("4");
+				stockcount = local->stocklist->count;
+				stock->stock[local->stocklist->name - 1] += stockcount;
+				local->stocklist = deletefirst(local->stocklist);
+				if (local->stocklist == NULL) {
+					which[local->localnum] = 0;
+					whichavailtime[local->localnum] = (rand() % 3) + 2;
+					Sleep(100);
+					local = ddelete(local, local->localnum);
+					whichcount--;
+				}
 				break;
 			}
 			
