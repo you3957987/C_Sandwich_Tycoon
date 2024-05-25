@@ -44,11 +44,7 @@ typedef struct owner {
 }Owner;
 
 typedef struct ownerstock {
-    int bread; // 1
-    int vege; // 2
-    int meat; // 3
-    int souce; // 4
-    int drink; // 5
+    int stock[5];
 }OwnerStock; // 재고 관리 구조체
 
 typedef struct listnode {

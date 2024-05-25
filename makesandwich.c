@@ -14,7 +14,7 @@ void showlocal(LocalNode* p) {
 }
 
 
-void makesandwich(Owner* sand_owner, int* stagecheck) {
+void makesandwich(Owner* sand_owner, int* stagecheck, OwnerStock* stock) {
 
 	Customer* cus = (Customer*)malloc(sizeof(Customer));
 	memset(cus, 0, sizeof(Customer));
@@ -24,15 +24,42 @@ void makesandwich(Owner* sand_owner, int* stagecheck) {
 	int guess = 0;
 	srand(time(NULL));// 필요 없는지 확인
 
+	gotoxy(20, 28);
+	printf("<<재고>>");
 	for (int i = 0; i < 5; i++) {
-		gotoxy(55, 27+2*i);
+		gotoxy(20, 28 + ((i + 1) * 3));
+		printf("[%d] :: %2d", i + 1, stock->stock[i]);
+	}
+
+	for (int i = 0; i < 5; i++) {
+		gotoxy(55, 31);
+		printf("                                       ");
+		gotoxy(55, 31);
 		printf("[%d번]어떤 재료를 넣을까요? :",i+1);
 		scanf("%d", &guess);
+		if (stock->stock[i] == 0) {
+			gotoxy(55, 34);
+			printf("재고가 없습니다!! 총 수익 50 감소!");
+			sand_owner->total_income -= 50;
+			Sleep(1000);
+			gotoxy(55, 34);
+			printf("                                                ");
+		}
+		else {
+			stock->stock[i] -= 1;
+		}
+		gotoxy(20, 28);
+		printf("<<재고>>");
+		for (int i = 0; i < 5; i++) {
+			gotoxy(20, 28 + ((i + 1) * 3));
+			printf("[%d] :: %2d", i + 1, stock->stock[i]);
+		}
 		push_stack(guess, cus->sandwich);
 	}
 	
 	//insertnode(sand_owner->localNode, 2);
-
+	gotoxy(55, 31);
+	printf("                                       ");
 	LocalNode *p;
 	p = sand_owner->localNode;
 	int local = 1; // 배달 지역은 다시 선택 가능하게!!

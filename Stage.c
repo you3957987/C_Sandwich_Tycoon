@@ -65,12 +65,12 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 				ShowBaseUi(p);
 				getordersandwich(sand_owner, p->localnum, i, &stagecheck); // 샌드위치 주문 받기- 스테이지 지역수 , 몇번째 손님 , 스테이지 체크용
 				ShowBaseUi(p);
-				makesandwich(sand_owner, &stagecheck); // 샌드위치 만들기 ,스테이지 체크용
+				makesandwich(sand_owner, &stagecheck, stock); // 샌드위치 만들기 ,스테이지 체크용 // 재고
 				ShowBaseUi(p);
 				checksandwich(sand_owner,(p->cusnum)-i,p->localnum );
 			}
 			ShowBaseUi(p);
-			ShowStateReady(sand_owner);
+			ShowStateReady(sand_owner,stock);
 		}
 		if (strcmp(p->title, "노멀-1 판매 스테이지") == 0) {
 
@@ -86,7 +86,7 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 			}
 			stageinit(sand_owner,p->localnum);
 			ShowBaseUi(p);
-			ShowStateSell(sand_owner);
+			ShowStateSell(sand_owner,stock);
 
 		}
 		if (strcmp(p->title, "노멀-2 준비 스테이지") == 0) {
@@ -105,7 +105,7 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 
 			}
 			ShowBaseUi(p);
-			ShowStateReady(sand_owner);
+			ShowStateReady(sand_owner, stock);
 
 		}
 		if (strcmp(p->title, "노멀-2 판매 스테이지") == 0) {
@@ -122,7 +122,7 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 			}
 			stageinit(sand_owner, p->localnum);
 			ShowBaseUi(p);
-			ShowStateSell(sand_owner);
+			ShowStateSell(sand_owner, stock);
 			
 		}
 		if (strcmp(p->title, "하드-1 준비 스테이지") == 0) {

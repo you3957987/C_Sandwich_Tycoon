@@ -35,7 +35,7 @@ void add_front(Queue* q, Customer* cus) {
 
 //주인장
 void owner_init(Owner* sand_owner) {
-    sand_owner->total_income = 0;
+    sand_owner->total_income = 1000;
     sand_owner->blood = 10;
 
     sand_owner->cusNode = (LocalNode*)malloc(sizeof(LocalNode));
@@ -139,10 +139,8 @@ void rider_avail_time_init(Heap* rider_heap) {
 // 재고 관리 파트
 
 void stock_init(OwnerStock* stock) {
-    
-    stock->bread - 10;
-    stock->drink = 10;
-    stock->meat = 10;
-    stock->souce = 10;
-    stock->vege = 10;
+
+    for (int i = 0; i < 5; i++) {
+        stock->stock[i] = 0;
+    }
 }
