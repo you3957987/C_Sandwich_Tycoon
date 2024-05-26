@@ -111,7 +111,7 @@ void rider_init(Heap* rider_heap) {
     Rider rider;
     int start = 0; // 배달 대기 시간 될 예정
     srand(time(NULL));
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 30; i++) {
         rider.id = i+1;
         rider.avail_time = 0;
         insert_min_heap(rider_heap, rider);
@@ -121,16 +121,17 @@ void rider_init(Heap* rider_heap) {
 
 }
 
-void rider_avail_time_init(Heap* rider_heap) {
+void rider_avail_time_init(Heap* rider_heap, Rider_chart_list* rider_table[]) {
 
     rider_heap->heap_size = 0;// 인덱스가 0부터 시작 감안!!!
     Rider rider;
     int start = 0; // 배달 대기 시간 될 예정
     srand(time(NULL));
-    for (int i = 0; i < 10; i++) {
-        rider.id = i + 1;
-        rider.avail_time = ( rand() % 10) + 1;
+    for (int i = 0; i < 30; i++) {
+        rider.id = (rand() % 900) + 100; // 3자리 수
+        rider.avail_time = ( rand() % 20) + 1;
         insert_min_heap(rider_heap, rider);
+        hash_chain_add(&rider, rider_table);
         Sleep(100);
     }
     rider_heap->heap[0].id = 0;

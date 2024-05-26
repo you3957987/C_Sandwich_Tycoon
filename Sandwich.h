@@ -32,7 +32,7 @@ typedef struct rider {
 //우선슌위 큐 - 배달기사님 대기시간. 아직 미완성. 완성해야함.
 
 typedef struct heap{
-    Rider heap[11];// 배달 기사 10명
+    Rider heap[31];// 배달 기사 30명
     int heap_size;
 }Heap; // 힙, 우선순위 큐
 
@@ -60,3 +60,10 @@ typedef struct DlistNode {
     struct DlistNode* blink;
     struct DlistNode* alink;
 }DlistNode; // 재고 미니게임용 이중 연결 리스트
+
+//해싱
+
+typedef struct rider_chart_list {
+    Rider rider_chart; // id, 대기시간.
+    struct Rider_chart_list* link;
+}Rider_chart_list;

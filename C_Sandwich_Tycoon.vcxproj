@@ -130,6 +130,7 @@
     <ClCompile Include="checksandwich.c" />
     <ClCompile Include="checkrider.c" />
     <ClCompile Include="deliversandwich.c" />
+    <ClCompile Include="findrider.c" />
     <ClCompile Include="init.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="makesandwich.c" />

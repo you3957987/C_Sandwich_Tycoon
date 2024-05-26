@@ -5,6 +5,8 @@
 #include "Stage.h"
 #include "Sandwich.h"
 
+struct Rider_chart_list* rider_table[10]; // 해싱 테이블 사이즈
+
 void stageinit(Owner* sand_owner, int localnum) {
 	LocalNode* p;
 	p = sand_owner->localNode;
@@ -44,7 +46,7 @@ Stage* stage_pop(Stage_Stack* stage_stack)
 		p = stage_stack->stack[(stage_stack->top)--];
 	return p;
 }
-void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap* rider_heap,OwnerStock* stock)// 자 드가자
+void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap* rider_heap,OwnerStock* stock, Rider_chart_list* rider_table[])// 자 드가자
 {
 	Stage* p;
 	stage_push(stage_stack, root);
@@ -56,21 +58,20 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 
 		if (strcmp(p->title, "노멀-1 준비 스테이지") == 0) {
 
-			ShowBaseUi(p);
-			stockminigame(stock,p->actiontime); // 재고, 행동타임
-			rider_avail_time_init(rider_heap);
+			//ShowBaseUi(p);
+			//stockminigame(stock,p->actiontime); // 재고, 행동타임
 
 			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
 			{
-				ShowBaseUi(p);
-				getordersandwich(sand_owner, p->localnum, i, &stagecheck); // 샌드위치 주문 받기- 스테이지 지역수 , 몇번째 손님 , 스테이지 체크용
-				ShowBaseUi(p);
-				makesandwich(sand_owner, &stagecheck, stock); // 샌드위치 만들기 ,스테이지 체크용 // 재고
-				ShowBaseUi(p);
-				checksandwich(sand_owner,(p->cusnum)-i,p->localnum );
+				//ShowBaseUi(p);
+				//getordersandwich(sand_owner, p->localnum, i, &stagecheck); // 샌드위치 주문 받기- 스테이지 지역수 , 몇번째 손님 , 스테이지 체크용
+				//ShowBaseUi(p);
+				//makesandwich(sand_owner, &stagecheck, stock); // 샌드위치 만들기 ,스테이지 체크용 // 재고
+				//ShowBaseUi(p);
+				//checksandwich(sand_owner,(p->cusnum)-i,p->localnum );
 			}
-			ShowBaseUi(p);
-			ShowStateReady(sand_owner,stock);
+			//ShowBaseUi(p);
+			//ShowStateReady(sand_owner,stock);
 		}
 		if (strcmp(p->title, "노멀-1 판매 스테이지") == 0) {
 
@@ -78,6 +79,8 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 			{
 				ShowBaseUi(p);
 				checkrider(sand_owner, rider_heap);
+				ShowBaseUi(p);
+				findrider(rider_heap,rider_table);
 				ShowBaseUi(p);
 				deliversandwich(sand_owner, rider_heap,&on);
 				if (on == 0) {
@@ -179,6 +182,12 @@ void start_stage() {
 	OwnerStock stock;
 	stock_init(&stock);
 
-	travel_stage(stage_stack, &root, &sand_owner, rider_heap, &stock);// 시작!!!!!!!!!!!!!!
+	init_hash_table(rider_table);
+
+	rider_avail_time_init(rider_heap,rider_table);
+
+
+
+	travel_stage(stage_stack, &root, &sand_owner, rider_heap, &stock,rider_table);// 시작!!!!!!!!!!!!!!
 
 }
