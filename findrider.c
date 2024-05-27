@@ -54,8 +54,10 @@ void hash_chain_add(Rider* rider, Rider_chart_list* rider_table[]) {
 int hash_chain_search(int id, Rider_chart_list* rider_table[]) {
 	Rider_chart_list* node;
 	int hash_value = hash_function(id);
-	gotoxy(55, 45);
+	gotoxy(55, 43);
 	printf("%d 지역에 있어요!!", hash_value);
+
+	Sleep(1000);
 
 	for (node = rider_table[hash_value]; node; node = node->link) {
 		if (node->rider_chart.id == id) {
@@ -69,7 +71,7 @@ int isKeyPressed(int key) {
 	return GetAsyncKeyState(key) & 0x8000;
 }
 
-void findrider(Heap* rider_heap, Rider_chart_list* rider_table[]) {
+void findrider(Heap* rider_heap, Rider_chart_list* rider_table[], OwnerStock* stock, Owner* sand_owner) {
 
 	int random;
 	int n = 0;
@@ -77,14 +79,25 @@ void findrider(Heap* rider_heap, Rider_chart_list* rider_table[]) {
 	int id = 0;
 	int answer;
 	int guess;
+	int what = 0;
 	answer = rider_heap->heap[1].id;
+	gotoxy(17, 46);
+	printf("총 수익 : %d  ", sand_owner->total_income);
+	gotoxy(17, 48);
+	printf("남은 체력 : %d  ", sand_owner->blood);
+	gotoxy(20, 28);
+	printf("<<재고>>");
+	for (int i = 0; i < 5; i++) {
+		gotoxy(20, 28 + ((i + 1) * 3));
+		printf("[%d] :: %2d", i + 1, stock->stock[i]);
+	}
 	gotoxy(55, 27);
 	printf("가장 빠른 기사님은 [%d] 기사님이에요!", answer);
-	while (1) { // 똑바로 입력할 때 까지
+	while (what == 0) { // 똑바로 입력할 때 까지
 		for (int i = 1; i <= 3; i++) {
 			while (1) {
 				gotoxy(55, 28 + i * 3);
-				random = (rand() % 10) + 1;
+				random = rand() % 10; // 0~9
 				printf("ID [%d] : %d   ", i, random); // 공백 추가하여 이전 값 지우기
 				Sleep(1000);
 
@@ -97,33 +110,37 @@ void findrider(Heap* rider_heap, Rider_chart_list* rider_table[]) {
 				}
 			}
 		}
-		gotoxy(55, 43);
+		gotoxy(55, 41);
 		printf("ID : %d 로 연결할게요~", id);
+		Sleep(1000);
 
 		if (hash_chain_search(answer, rider_table) == answer) { // id로 바꾸기
-			gotoxy(55, 47);
+			gotoxy(55, 45);
 			printf("연결을 성공했어요 !!");
-			gotoxy(55, 48);
-			printf("확인하셨다면 1을 입력해주세요~ : ");
-			scanf("%d", &guess);
-			if (guess == 1) {
-				break;
+			Sleep(1000);
+			while (1) {
+				gotoxy(55, 47);
+				printf("확인하셨다면 1을 입력해주세요~ : ");
+				scanf("%d", &guess);
+				if (guess == 1) {
+					what = 1;
+					break;
+				}
 			}
-
 		}
 		else {
-			gotoxy(55, 47);
+			gotoxy(55, 45);
 			printf("연결을 실패했어요. 다시 시도해 보세요!");
 			Sleep(2000);
 			for (int i = 1; i <= 3; i++) {
 				gotoxy(55, 28 + i * 3);
 				printf("                                          ");
 			}
-			gotoxy(55, 43);
+			gotoxy(55, 41);
 			printf("                           ");
-			gotoxy(55, 45);
+			gotoxy(55, 43);
 			printf("                                       ");
-			gotoxy(55, 47);
+			gotoxy(55, 45);
 			printf("                                                ");
 		}
 	}

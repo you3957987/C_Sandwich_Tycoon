@@ -77,13 +77,36 @@ void ShowStateSell(Owner* sand_owner, OwnerStock* stock) {
 	Sleep(1000);
 	gotoxy(45, 27);
 	printf("주문 받은 샌드위치를 전부 배달완료 했습니다.");
-	gotoxy(45, 29);
-	printf("샌드위치를 제작하시려면 1을 입력하여 준비 스테이지로 이동하세요~ : ");
 	while (1) {
+		gotoxy(45, 29);
+		printf("샌드위치 재고를 채우시려면 1을 입력하여 납품 스테이지로 이동하세요~ : ");
 		scanf("%d", &guess);
 		if (guess == 1) {
 			break;
 		}
 	}
+
+}
+
+void ShowStateStock(Owner* sand_owner, OwnerStock* stock) {
+
+	int guess = 0;
+	gotoxy(52, 23);
+	printf("[[ 총 수익 :: %d // 남은 체력 :: %d ]]", sand_owner->total_income, sand_owner->blood);
+	gotoxy(40, 25);
+	printf("재고 빵 : %d // 야채 : %d // 재료 : %d // 소스 : %d // 음료 : %d", stock->stock[0], stock->stock[1], stock->stock[2], stock->stock[3], stock->stock[4]);
+
+	Sleep(1000);
+	gotoxy(45, 27);
+	printf("행동력을 모두 소모하여 납품을 완료하였습니다..");
+	while (1) {
+		gotoxy(45, 29);
+		printf("샌드위치를 제작하시려면 1을 입력하여 제작 스테이지로 이동하세요~ : ");
+		scanf("%d", &guess);
+		if (guess == 1) {
+			break;
+		}
+	}
+
 
 }

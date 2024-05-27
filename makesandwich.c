@@ -76,7 +76,6 @@ void makesandwich(Owner* sand_owner, int* stagecheck, OwnerStock* stock) {
 	int guessnum = 0;
 	int guess = 0;
 	srand(time(NULL));// 필요 없는지 확인
-
 	gotoxy(20, 28);
 	printf("<<재고>>");
 	for (int i = 0; i < 5; i++) {
@@ -91,6 +90,10 @@ void makesandwich(Owner* sand_owner, int* stagecheck, OwnerStock* stock) {
 		printf("[%s]어떤 재료를 넣을까요?", numberToStringmakep(i+1));
 		gotoxy(55, 33);
 		printf("                                                             ");
+		gotoxy(17, 46);
+		printf("총 수익 : %d  ", sand_owner->total_income);
+		gotoxy(17, 48);
+		printf("남은 체력 : %d  ", sand_owner->blood);
 		gotoxy(55, 33);
 		printf("<%s> = %d // <%s> = %d // <%s> = %d :: ", numberToStringmake(3*i+1), 3*i+1, numberToStringmake(3*i+2), 3*i+2, numberToStringmake(3*i+3), 3*i+3);
 		scanf("%d", &guess);

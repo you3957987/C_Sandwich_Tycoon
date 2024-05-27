@@ -59,7 +59,7 @@ int comparesandwich(Customer* comparecus, Customer* comparelocal) {
 	return 0;
 }
 
-void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on) {
+void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on, OwnerStock* stock) {
 
 	LocalNode* pLocal;
 	LocalNode* pCus;
@@ -77,6 +77,17 @@ void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on) {
 
 	rider = delete_min_heap(rider_heap); // 라이더 가챠~
 	time = rider.avail_time;
+
+	gotoxy(17, 46);
+	printf("총 수익 : %d  ", sand_owner->total_income);
+	gotoxy(17, 48);
+	printf("남은 체력 : %d  ", sand_owner->blood);
+	gotoxy(20, 28);
+	printf("<<재고>>");
+	for (int i = 0; i < 5; i++) {
+		gotoxy(20, 28 + ((i + 1) * 3));
+		printf("[%d] :: %2d", i + 1, stock->stock[i]);
+	}
 
 	while (1) {
 		gotoxy(45, 27);
@@ -172,12 +183,6 @@ void deliversandwich(Owner* sand_owner, Heap* rider_heap, int *on) {
 				printf("[%d] 배달 기사님의 대기시간이 %d만큼 증가했어요! < %d > -> < %d >  ",rider.id ,uptime, time, rider.avail_time-1 );
 				insert_min_heap(rider_heap, rider);
 
-				for (int i = 1; i <= 10; i++) {
-					rider_heap->heap[i].avail_time -=1;
-					if (rider_heap->heap[i].avail_time == 0) {
-						rider_heap->heap[i].avail_time = 1;
-					}
-				}
 				while (1) {
 					Sleep(1000);
 					gotoxy(51, 43);

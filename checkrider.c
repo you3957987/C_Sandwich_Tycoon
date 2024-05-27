@@ -26,8 +26,18 @@ void showrider(Heap* rider_heap) {
 }
 
 
-void checkrider(Owner* sand_owner,Heap* rider_heap) {
+void checkrider(Owner* sand_owner,Heap* rider_heap, OwnerStock* stock) {
 	int guess;
+	gotoxy(17, 46);
+	printf("총 수익 : %d  ", sand_owner->total_income);
+	gotoxy(17, 48);
+	printf("남은 체력 : %d  ", sand_owner->blood);
+	gotoxy(20, 28);
+	printf("<<재고>>");
+	for (int i = 0; i < 5; i++) {
+		gotoxy(20, 28 + ((i + 1) * 3));
+		printf("[%d] :: %2d", i + 1, stock->stock[i]);
+	}
 	while (1) {
 		gotoxy(41, 25);
 		printf("배달 가능힌 기사님을 Heap앱을 통해 검색하시려면 1을 입력하세요 : ");

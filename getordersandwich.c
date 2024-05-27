@@ -45,7 +45,7 @@ const char* numberToStringgetorder(int num) {
 	}
 }
 
-void getordersandwich(Owner* sand_owner,int localnum, int cusnum, int *stagecheck) {
+void getordersandwich(Owner* sand_owner,int localnum, int cusnum, int *stagecheck, OwnerStock* stock) {
 
 	Customer* cus = (Customer*)malloc(sizeof(Customer));
 	memset(cus, 0, sizeof(Customer));
@@ -53,6 +53,17 @@ void getordersandwich(Owner* sand_owner,int localnum, int cusnum, int *stagechec
 	init_product(cus->sandwich);
 	int guessnum = 0;
 	srand(time(NULL));
+	gotoxy(17, 46);
+	printf("총 수익 : %d  ", sand_owner->total_income);
+	gotoxy(17, 48);
+	printf("남은 체력 : %d  ", sand_owner->blood);
+	gotoxy(20, 28);
+	printf("<<재고>>");
+	for (int i = 0; i < 5; i++) {
+		gotoxy(20, 28 + ((i + 1) * 3));
+		printf("[%d] :: %2d", i + 1, stock->stock[i]);
+	}
+
 	gotoxy(48, 28);
 	printf("[[ %d번째 손님의 주문을 확인하세요!!!!!!! ]] ",cusnum);
 

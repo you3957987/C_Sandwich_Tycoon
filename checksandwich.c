@@ -8,7 +8,7 @@
 #include "Sandwich.h"
 
 
-void checksandwich(Owner* sand_owner, int cuscount, int localnum) {// 남은 손님수 // 지역수
+void checksandwich(Owner* sand_owner, int cuscount, int localnum,OwnerStock* stock) {// 남은 손님수 // 지역수
 	LocalNode* p;
 	p = sand_owner->localNode;
 	int guess;
@@ -25,6 +25,16 @@ void checksandwich(Owner* sand_owner, int cuscount, int localnum) {// 남은 손님�
 		Sleep(1000);
 		print = 31 + (i * 4);
 		p = p->link;
+	}
+	gotoxy(17, 46);
+	printf("총 수익 : %d  ", sand_owner->total_income);
+	gotoxy(17, 48);
+	printf("남은 체력 : %d  ", sand_owner->blood);
+	gotoxy(20, 28);
+	printf("<<재고>>");
+	for (int i = 0; i < 5; i++) {
+		gotoxy(20, 28 + ((i + 1) * 3));
+		printf("[%d] :: %2d", i + 1, stock->stock[i]);
 	}
 
 

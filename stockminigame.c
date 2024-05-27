@@ -392,5 +392,4 @@ stockminigame(OwnerStock* stock, int actiontime) {// int actiontime
 		}
 		time++;
 	}
-
 }
