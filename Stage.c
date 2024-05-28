@@ -5,7 +5,7 @@
 #include "Stage.h"
 #include "Sandwich.h"
 
-struct Rider_chart_list* rider_table[10]; // 해싱 테이블 사이즈
+struct Rider_chart_list* rider_table[10]; // 해싱 테이블 사이즈 끝자리 0~9까지
 
 void stageinit(Owner* sand_owner, int localnum) {
 	LocalNode* p;
@@ -46,7 +46,7 @@ Stage* stage_pop(Stage_Stack* stage_stack)
 		p = stage_stack->stack[(stage_stack->top)--];
 	return p;
 }
-void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap* rider_heap,OwnerStock* stock, Rider_chart_list* rider_table[])// 자 드가자
+void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap* rider_heap,OwnerStock* stock, Rider_chart_list* rider_table[])
 {
 	Stage* p;
 	stage_push(stage_stack, root);
@@ -98,11 +98,13 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 
 			insertnode(sand_owner->cusNode, 2);
 			insertnode(sand_owner->localNode, 2);
-			on = 1; // 스테이지 초기화
+			on = 1; // 지역 추가(원형 연결 리스트 insert) + 전 지역에서 vip 잘못 계산했을 시, on이 0이 되어있을테니 1로 초기화.
 
 
 			ShowBaseUi(p);
 			stockminigame(stock, p->actiontime); // 재고, 행동타임
+			ShowBaseUi(p);
+			ShowStateStock(sand_owner, stock);
 
 			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
 			{
@@ -134,16 +136,86 @@ void travel_stage(Stage_Stack* stage_stack, Stage* root,Owner *sand_owner, Heap*
 			ShowStateSell(sand_owner, stock);
 			
 		}
-		if (strcmp(p->title, "하드-1 준비 스테이지") == 0) {
+		if (strcmp(p->title, "하드-1 준비 스테이지") == 0) { // 노멀 스테이지에서 지역 추가되는것 이외에는 동일
+
+			insertnode(sand_owner->cusNode, 3);
+			insertnode(sand_owner->localNode, 3);
+			on = 1; // 지역 추가(원형 연결 리스트 insert) + 전 지역에서 vip 잘못 계산했을 시, on이 0이 되어있을테니 1로 초기화.
+			ShowBaseUi(p);
+			stockminigame(stock, p->actiontime); // 재고, 행동타임
+			ShowBaseUi(p);
+			ShowStateStock(sand_owner, stock);
+
+			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
+			{
+				ShowBaseUi(p);
+				getordersandwich(sand_owner, p->localnum, i, &stagecheck); // 샌드위치 주문 받기- 스테이지 지역수 , 몇번째 손님 , 스테이지 체크용
+				ShowBaseUi(p);
+				makesandwich(sand_owner, &stagecheck, stock); // 샌드위치 만들기 ,스테이지 체크용 // 재고
+				ShowBaseUi(p);
+				checksandwich(sand_owner, (p->cusnum) - i, p->localnum);
+			}
+			ShowBaseUi(p);
+			ShowStateReady(sand_owner, stock);
 
 		}
 		if (strcmp(p->title, "하드-1 판매 스테이지") == 0) {
-			
+			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
+			{
+				ShowBaseUi(p);
+				checkrider(sand_owner, rider_heap, stock);
+				ShowBaseUi(p);
+				findrider(rider_heap, rider_table, stock, sand_owner);
+				ShowBaseUi(p);
+				deliversandwich(sand_owner, rider_heap, &on, stock);
+				if (on == 0) {
+					break;
+				}
+			}
+			stageinit(sand_owner, p->localnum);
+			ShowBaseUi(p);
+			ShowStateSell(sand_owner, stock);
 		}
 		if (strcmp(p->title, "하드-2 준비 스테이지") == 0) {
+
+			insertnode(sand_owner->cusNode, 4);
+			insertnode(sand_owner->localNode, 4);
+			on = 1; // 지역 추가(원형 연결 리스트 insert) + 전 지역에서 vip 잘못 계산했을 시, on이 0이 되어있을테니 1로 초기화.
+			ShowBaseUi(p);
+			stockminigame(stock, p->actiontime); // 재고, 행동타임
+			ShowBaseUi(p);
+			ShowStateStock(sand_owner, stock);
+
+			for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
+			{
+				ShowBaseUi(p);
+				getordersandwich(sand_owner, p->localnum, i, &stagecheck); // 샌드위치 주문 받기- 스테이지 지역수 , 몇번째 손님 , 스테이지 체크용
+				ShowBaseUi(p);
+				makesandwich(sand_owner, &stagecheck, stock); // 샌드위치 만들기 ,스테이지 체크용 // 재고
+				ShowBaseUi(p);
+				checksandwich(sand_owner, (p->cusnum) - i, p->localnum);
+			}
+			ShowBaseUi(p);
+			ShowStateReady(sand_owner, stock);
 			
 		}
 		if (strcmp(p->title, "하드-2 판매 스테이지") == 0) {
+
+				for (int i = 1; i <= p->cusnum; i++) // 스테이지 손님수 만큼 반복.
+			{
+				ShowBaseUi(p);
+				checkrider(sand_owner, rider_heap, stock);
+				ShowBaseUi(p);
+				findrider(rider_heap, rider_table, stock, sand_owner);
+				ShowBaseUi(p);
+				deliversandwich(sand_owner, rider_heap, &on, stock);
+				if (on == 0) {
+					break;
+				}
+			}
+			stageinit(sand_owner, p->localnum);
+			ShowBaseUi(p);
+			ShowStateSell(sand_owner, stock);
 			
 		}
 		if (p->right != NULL)
@@ -158,9 +230,9 @@ void start_stage() {
 	memset(stage_stack, 0, sizeof(Stage_Stack));
 	stage_stack->top = -1;
 
-	Stage nomaloneready = { "노멀-1 준비 스테이지",NULL ,NULL,1,1 ,10};// 손님수 지역수
+	Stage nomaloneready = { "노멀-1 준비 스테이지",NULL ,NULL,1,1 ,10};// 손님수 지역수 , 미니게임 행동수(조절 가능)
 	Stage nomalonego = { "노멀-1 판매 스테이지",NULL ,NULL ,1,1,10};
-	Stage nomaltwoready = { "노멀-2 준비 스테이지", NULL, NULL ,2,2,20};//손님수 지역수
+	Stage nomaltwoready = { "노멀-2 준비 스테이지", NULL, NULL ,2,2,20};//손님수 지역수, 미니게임 행동수
 	Stage nomaltwogo = { "노멀-2 판매 스테이지", NULL, NULL, 2, 2,20 };
 	Stage hardoneready = { "하드-1 준비 스테이지",NULL ,NULL ,3,3,30};
 	Stage hardonego = { "하드-1 판매 스테이지",NULL ,NULL ,3,3,30};

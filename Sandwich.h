@@ -1,47 +1,45 @@
 //sandwich.h
 #pragma once
 typedef struct Sandwich {
-    int* sandwich_num; // 5°³.
+    int* sandwich_num; // mallocÀ¸·Î ÃÑ 5°» µ¿ÀûÇÒ´ç.
     int top;
-}Sandwich; // ½ºÅÃ
+}Sandwich; // ÀÚ·á±¸Á¶ : ½ºÅÃ
 
 typedef struct customer {
-    int vip;
-    int local;
+    int vip; // ¼Õ´ÔÀÌ vipÀÏ °æ¿ì 1, ¾Æ´Ò°æ¿ì 0
+    int local; // getorderÇÔ¼ö¿¡¼­ ¼Õ´ÔÀÇ
     Sandwich* sandwich;//»÷µåÀ§Ä¡ ½ºÅÃ
-} Customer;
+} Customer; // ÀÚ·á±¸Á¶ : (¼Õ´Ô)±¸Á¶Ã¼
 
 typedef struct queue {
     int front, rear;
     int vipnum;
     Customer* cus[20];// ¼Õ´Ô¼ö ÃÖ´ë 20¸í
-}Queue;// Å¥
+}Queue;// ÀÚ·á±¸Á¶ : µ¦( vipÀÏ °æ¿ì add front, ÀÏ¹İ ¼Õ´ÔÀÏ °æ¿ì add rear) & Å¥
 
 typedef struct local {
     int cuscount; //
     int localname; // .¼ıÀÚ¸¦ ¹®ÀÚ·Î º¯È¯ÇÏ´Â ÇÔ¼ö ¸¸µé¾î¾ßÇÔ
     Queue* cusQ;
     struct LocalNode* link;
-}LocalNode; // ¿øÇü ¿¬°á¸®½ºÆ®
+}LocalNode; // ÀÚ·á±¸Á¶ : ¿øÇü ¿¬°á¸®½ºÆ®
 
 typedef struct rider {
-    int id; // ¶óÀÌ´õ ±¸ºĞ¿ë!!!
-    int avail_time; // °¡´É ½Ã°£. Å°¯“!!!!
-}Rider;
-
-//¿ì¼±šœÀ§ Å¥ - ¹è´Ş±â»ç´Ô ´ë±â½Ã°£. ¾ÆÁ÷ ¹Ì¿Ï¼º. ¿Ï¼ºÇØ¾ßÇÔ.
+    int id; // ¶óÀÌ´õ ±¸ºĞ¿ë. ·£´ıÇÑ 3ÀÚ¸® ¼ö.
+    int avail_time; // ¹è´Ş±â»ç ´ë±â ½Ã°£ == Èü(¿ì¼±¼øÀ§ Å¥¿¡¼­ÀÇ Å°°ª)
+}Rider; //ÀÚ·á±¸Á¶ : ±¸Á¶Ã¼
 
 typedef struct heap{
-    Rider heap[31];// ¹è´Ş ±â»ç 30¸í
+    Rider heap[31];// ¹è´Ş ±â»ç 30¸í. 1¹øÂ° ÀÎµ¦½º´Â ¹«½Ã.
     int heap_size;
-}Heap; // Èü, ¿ì¼±¼øÀ§ Å¥
+}Heap; // ÀÚ·á±¸Á¶ : Èü, ¿ì¼±¼øÀ§ Å¥
 
 typedef struct owner {
     int total_income; // ³»µ·
     int blood; // Ã¼·Â
     LocalNode* cusNode; // ¼Õ´Ô ÀúÀå ¿¬°á¸®½ºÆ®
     LocalNode* localNode;// Áö¿ª ÀúÀå ¿¬°á¸®½ºÆ®
-}Owner;
+}Owner;// ÀÚ·á±¸Á¶ : ±¸Á¶Ã¼.
 
 typedef struct ownerstock {
     int stock[5];
@@ -51,7 +49,7 @@ typedef struct listnode {
     int name;// Àç·á ÀÌ¸§
     int count; // Àç·á °³¼ö
     struct ListNode* link;
-}ListNode; // ´Ü¼ø ¿¬°á ÀÌ½ºÆ®
+}ListNode; // ÀÚ·á±¸Á¶ : ´Ü¼ø ¿¬°á ¸®½ºÆ®
 
 typedef struct DlistNode {
     int waittime; // ³³Ç° ´ë±â½Ã°£
@@ -59,11 +57,11 @@ typedef struct DlistNode {
     ListNode* stocklist; // Çìµå Æ÷ÀÎÅÍ
     struct DlistNode* blink;
     struct DlistNode* alink;
-}DlistNode; // Àç°í ¹Ì´Ï°ÔÀÓ¿ë ÀÌÁß ¿¬°á ¸®½ºÆ®
+}DlistNode; // ÀÚ·á±¸Á¶ : Àç°í ¹Ì´Ï°ÔÀÓ¿ë ÀÌÁß ¿¬°á ¸®½ºÆ®
 
 //ÇØ½Ì
 
 typedef struct rider_chart_list {
     Rider rider_chart; // id, ´ë±â½Ã°£.
     struct Rider_chart_list* link;
-}Rider_chart_list;
+}Rider_chart_list; // ÀÚ·á±¸Á¶ : Ã¼ÀÌ´× Å×ÀÌºí == ÇØ½Ì.
